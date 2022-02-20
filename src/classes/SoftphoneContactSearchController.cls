@@ -14,4 +14,15 @@ global class SoftphoneContactSearchController {
         }
         return JSON.serialize(contactList);
     }
+
+    function static Boolean checkNumberIsDNC(String toNumber) {
+        List<Contact> contactList = new List<Contact>();
+        for (Contact contact: [SELECT Phone, DoNotCall FROM Contact WHERE (phone LIKE :('%' + toNumber + '%') AND DoNotCall = 'true') LIMIT 10]){
+            contactList.add(contact);
+        }
+
+        if(contactList.isEmpty()) { return false };
+        return true;
+
+    }
 }

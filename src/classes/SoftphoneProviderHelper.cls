@@ -73,7 +73,14 @@ public class SoftphoneProviderHelper {
             result.provider = 'DUMMY_PROVIDER';
             result.duration = '10sec';
             result.startTime = DateTime.now();
-            return result;
+
+            if (SoftphoneContactSearchController.checkNumberIsDNC(toNumber) == false) {
+                return result;
+            } else {
+                System.debug('Open CTI | Number is on DNC');
+                return null;
+            }
         }
     }
+
 }
